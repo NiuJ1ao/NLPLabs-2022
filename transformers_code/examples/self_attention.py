@@ -9,15 +9,15 @@ import numpy as np
 
 def scaled_dot_product_attention(Q, K, V, dk=4):
     ## matmul Q and K
-    QK = ?
+    QK = Q @ K.T
 
     ## scale QK by the sqrt of dk
-    matmul_scaled = ?
+    matmul_scaled = QK / np.sqrt(dk)
 
     attention_weights = F.softmax(matmul_scaled, dim=-1)
 
     ## matmul attention_weights by V
-    output = ?
+    output = attention_weights @ V
 
     return output, attention_weights
 

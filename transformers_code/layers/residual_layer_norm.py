@@ -9,6 +9,6 @@ class ResidualLayerNorm(nn.Module):
 
     def forward(self, x, residual):
         ## Apply the residual
-        residual_applied = ?
+        residual_applied = residual + x
         ln = self.layer_norm(residual_applied)
         return self.dropout(ln)

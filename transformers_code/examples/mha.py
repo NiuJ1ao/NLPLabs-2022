@@ -23,8 +23,8 @@ class MultiHeadAttention(nn.Module):
         self.linear_Qs = nn.ModuleList([nn.Linear(d_model, self.d)
                                         for _ in range(num_heads)])
         ## create a list of layers for K, and a list of layers for V
-        self.linear_Ks = ?
-        self.linear_Vs = ?
+        self.linear_Ks = nn.ModuleList([nn.Linear(d_model, self.d) for _ in range(num_heads)])
+        self.linear_Vs = nn.ModuleList([nn.Linear(d_model, self.d) for _ in range(num_heads)])
 
         self.mha_linear = nn.Linear(d_model, d_model)
 
@@ -63,7 +63,7 @@ class MultiHeadAttention(nn.Module):
         for Q_, K_, V_ in zip(Q, K, V):
 
             ## run scaled_dot_product_attention
-            output, attn_weight = ?
+            output, attn_weight = self.scaled_dot_product_attention(Q_, K_, V_)
 
             # shape(output) = [B x seq_len x D/num_heads]
             # shape(attn_weights_per_head) = [B x seq_len x seq_len]
